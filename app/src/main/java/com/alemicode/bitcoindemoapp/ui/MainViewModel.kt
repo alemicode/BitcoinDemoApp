@@ -1,4 +1,4 @@
-package com.alemicode.bitcoindemoapp
+package com.alemicode.bitcoindemoapp.ui
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
