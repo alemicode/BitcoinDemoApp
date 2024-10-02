@@ -1,4 +1,4 @@
-package com.alemicode.bitcoindemoapp.model.response
+package com.alemicode.bitcoindemoapp.domain.model.response
 
 import com.google.gson.annotations.SerializedName
 

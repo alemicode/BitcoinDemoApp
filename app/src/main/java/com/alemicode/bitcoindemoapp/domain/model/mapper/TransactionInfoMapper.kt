@@ -1,11 +1,11 @@
-package com.alemicode.bitcoindemoapp.model.mapper
+package com.alemicode.bitcoindemoapp.domain.model.mapper
 
-import com.alemicode.bitcoindemoapp.model.model.ConfirmedTransactionHistory
-import com.alemicode.bitcoindemoapp.model.model.UnconfirmedTransactionHistory
-import com.alemicode.bitcoindemoapp.model.model.WalletBalance
-import com.alemicode.bitcoindemoapp.model.response.ConfirmedTransactionDto
-import com.alemicode.bitcoindemoapp.model.response.UnconfirmedTransactionDto
-import com.alemicode.bitcoindemoapp.model.response.WalletBalanceDto
+import com.alemicode.bitcoindemoapp.domain.model.model.ConfirmedTransactionHistory
+import com.alemicode.bitcoindemoapp.domain.model.model.UnconfirmedTransactionHistory
+import com.alemicode.bitcoindemoapp.domain.model.model.WalletBalance
+import com.alemicode.bitcoindemoapp.domain.model.response.ConfirmedTransactionDto
+import com.alemicode.bitcoindemoapp.domain.model.response.UnconfirmedTransactionDto
+import com.alemicode.bitcoindemoapp.domain.model.response.WalletBalanceDto
 
 // Extension functions for converting DTOs to models
 

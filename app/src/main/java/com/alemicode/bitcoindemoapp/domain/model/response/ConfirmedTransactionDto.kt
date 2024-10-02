@@ -1,4 +1,4 @@
-package com.alemicode.bitcoindemoapp.model.response
+package com.alemicode.bitcoindemoapp.domain.model.response
 
 import com.google.gson.annotations.SerializedName
 
@@ -17,31 +17,31 @@ import com.google.gson.annotations.SerializedName
  */
 data class ConfirmedTransactionDto(
 
-	@field:SerializedName("locktime")
+    @field:SerializedName("locktime")
 	val locktime: Int? = null,
 
-	@field:SerializedName("size")
+    @field:SerializedName("size")
 	val size: Int? = null,
 
-	@field:SerializedName("fee")
+    @field:SerializedName("fee")
 	val fee: Int? = null,
 
-	@field:SerializedName("txid")
+    @field:SerializedName("txid")
 	val txid: String? = null,
 
-	@field:SerializedName("weight")
+    @field:SerializedName("weight")
 	val weight: Int? = null,
 
-	@field:SerializedName("vin")
+    @field:SerializedName("vin")
 	val vin: List<ConfirmedVinItem?>? = null,
 
-	@field:SerializedName("version")
+    @field:SerializedName("version")
 	val version: Int? = null,
 
-	@field:SerializedName("vout")
+    @field:SerializedName("vout")
 	val vout: List<ConfirmedVoutItem?>? = null,
 
-	@field:SerializedName("status")
+    @field:SerializedName("status")
 	val confirmedStatus: ConfirmedStatus? = null
 )
 
@@ -60,31 +60,31 @@ data class ConfirmedTransactionDto(
  */
 data class ConfirmedVinItem(
 
-	@field:SerializedName("scriptsig")
+    @field:SerializedName("scriptsig")
 	val scriptsig: String? = null,
 
-	@field:SerializedName("witness")
+    @field:SerializedName("witness")
 	val witness: List<String?>? = null,
 
-	@field:SerializedName("sequence")
+    @field:SerializedName("sequence")
 	val sequence: Long? = null,
 
-	@field:SerializedName("inner_redeemscript_asm")
+    @field:SerializedName("inner_redeemscript_asm")
 	val innerRedeemscriptAsm: String? = null,
 
-	@field:SerializedName("scriptsig_asm")
+    @field:SerializedName("scriptsig_asm")
 	val scriptsigAsm: String? = null,
 
-	@field:SerializedName("prevout")
+    @field:SerializedName("prevout")
 	val confirmedPrevout: ConfirmedPrevout? = null,
 
-	@field:SerializedName("is_coinbase")
+    @field:SerializedName("is_coinbase")
 	val isCoinbase: Boolean? = null,
 
-	@field:SerializedName("txid")
+    @field:SerializedName("txid")
 	val txid: String? = null,
 
-	@field:SerializedName("vout")
+    @field:SerializedName("vout")
 	val vout: Int? = null
 )
 

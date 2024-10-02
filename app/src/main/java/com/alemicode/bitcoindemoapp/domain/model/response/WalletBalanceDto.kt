@@ -1,16 +1,16 @@
-package com.alemicode.bitcoindemoapp.model.response
+package com.alemicode.bitcoindemoapp.domain.model.response
 
 import com.google.gson.annotations.SerializedName
 
 data class WalletBalanceDto(
 
-	@field:SerializedName("address")
+    @field:SerializedName("address")
 	val address: String? = null,
 
-	@field:SerializedName("chain_stats")
+    @field:SerializedName("chain_stats")
 	val chainStats: ChainStats? = null,
 
-	@field:SerializedName("mempool_stats")
+    @field:SerializedName("mempool_stats")
 	val mempoolStats: MempoolStats? = null
 )
 

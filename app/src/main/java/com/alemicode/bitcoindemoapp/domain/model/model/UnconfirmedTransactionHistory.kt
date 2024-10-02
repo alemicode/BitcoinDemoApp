@@ -1,6 +1,6 @@
-package com.alemicode.bitcoindemoapp.model.model
+package com.alemicode.bitcoindemoapp.domain.model.model
 
-import com.alemicode.bitcoindemoapp.model.response.UnconfirmedStatus
+import com.alemicode.bitcoindemoapp.domain.model.response.UnconfirmedStatus
 
 /**
  * Represents an unconfirmed transaction in the transaction history.

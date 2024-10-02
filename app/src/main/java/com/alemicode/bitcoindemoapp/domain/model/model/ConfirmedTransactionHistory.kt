@@ -1,6 +1,6 @@
-package com.alemicode.bitcoindemoapp.model.model
+package com.alemicode.bitcoindemoapp.domain.model.model
 
-import com.alemicode.bitcoindemoapp.model.response.ConfirmedStatus
+import com.alemicode.bitcoindemoapp.domain.model.response.ConfirmedStatus
 
 /**
  * Represents a confirmed transaction in the transaction history.

@@ -1,4 +1,4 @@
-package com.alemicode.bitcoindemoapp.model.model
+package com.alemicode.bitcoindemoapp.domain.model.model
 
 /**
  * Represents the wallet balance information.
