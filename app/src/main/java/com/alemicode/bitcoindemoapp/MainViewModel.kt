@@ -6,11 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.alemicode.bitcoindemoapp.domain.GetTransactionHistoryUseCase
 import com.alemicode.bitcoindemoapp.domain.model.model.AllTransactionHistoryModel
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.map
-import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
@@ -19,32 +15,45 @@ class MainViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
 
-    // Flow to hold the wallet address, with a default value
+
     private val walletAddressFlow = savedStateHandle.getStateFlow(
         key = "walletAddress",
-        initialValue = "tb1qtzrhlwxqcsufs8hvg4c3w33utf9hat4x9xlrf7" // a fix value to check only
+        initialValue = "tb1qtzrhlwxqcsufs8hvg4c3w33utf9hat4x9xlrf7" // A temp wallet address
     )
 
-    // Updated ViewModel state logic
-    val uiState: StateFlow<UiState> =
-        getTransactionHistoryUseCase(walletAddressFlow.value)
-            .map<AllTransactionHistoryModel, UiState> { transactionsHistory ->
-                UiState.Success(transactionsHistory)
-            }
-            // Handle errors
-            .catch { e ->
-                emit(UiState.Error(e.message ?: "Unknown error"))
-            }
+    // MutableStateFlow to trigger refresh
+    private val _refreshTrigger = MutableStateFlow(false)
+    val refreshTrigger: StateFlow<Boolean> = _refreshTrigger.asStateFlow()
+
+    // Combined flow to handle the state updates
+    val walletInformationUiState: StateFlow<WalletInformationUiState> =
+        combine(walletAddressFlow, _refreshTrigger) { address, _ ->
+            address // Just pass through the address; refresh trigger is ignored in this context
+
+        }.flatMapLatest { address ->
+            getTransactionHistoryUseCase(address)
+                .map<AllTransactionHistoryModel, WalletInformationUiState> { transactionsHistory ->
+                    WalletInformationUiState.Success(transactionsHistory)
+                }
+                .catch { e ->
+                    emit(WalletInformationUiState.Error(e.message ?: "Unknown error"))
+                }
+        }
             .stateIn(
                 scope = viewModelScope,
                 started = SharingStarted.WhileSubscribed(5_000),
-                initialValue = UiState.Loading
+                initialValue = WalletInformationUiState.Loading
             )
+
+    // Method to trigger refresh
+    fun refreshData() {
+        _refreshTrigger.value != _refreshTrigger.value // Increment counter to force state change
+    }
 }
 
 // Sealed class representing different UI states
-sealed class UiState {
-    data object Loading : UiState() // Loading state when data is being fetched
-    data class Success(val data: AllTransactionHistoryModel) : UiState() // Success state with transaction history data
-    data class Error(val message: String) : UiState() // Error state with an error message
+sealed class WalletInformationUiState {
+    data object Loading : WalletInformationUiState()
+    data class Success(val data: AllTransactionHistoryModel) : WalletInformationUiState()
+    data class Error(val message: String) : WalletInformationUiState()
 }
