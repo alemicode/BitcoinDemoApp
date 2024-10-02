@@ -1,6 +1,9 @@
 package com.alemicode.bitcoindemoapp.di
 
 import com.alemicode.bitcoindemoapp.data.networkDatasource.ApiClient
+import com.alemicode.bitcoindemoapp.data.repository.TransactionHistoryRepositoryImpl
+import com.alemicode.bitcoindemoapp.domain.TransactionHistoryRepository
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,4 +33,12 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideApiClient(retrofit: Retrofit): ApiClient = retrofit.create(ApiClient::class.java)
+
+    @Provides
+    @Singleton
+    fun provideTransactionHistoryRepository(
+        apiClient: ApiClient
+    ): TransactionHistoryRepository {
+        return TransactionHistoryRepositoryImpl(apiClient)
+    }
 }
