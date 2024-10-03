@@ -34,7 +34,6 @@ fun WalletDetailsScreen(
     walletAddress: String,
 ) {
 
-
     // Remember the coroutine scope for launching background tasks
     val coroutineScope = rememberCoroutineScope()
 
@@ -67,7 +66,6 @@ fun WalletDetailsScreen(
                             )
                         }
                     }
-
                     is WalletInformationUiState.Success -> {
                         val data = (uiState.value as WalletInformationUiState.Success).data
                         val btcAmount =
@@ -120,8 +118,6 @@ fun WalletDetailsScreen(
                                 )
                             }
                         }
-
-
                     }
                 }
 
