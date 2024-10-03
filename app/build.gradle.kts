@@ -79,6 +79,5 @@ dependencies {
     implementation(libs.navigation.compose)
     implementation(libs.datastore)
     implementation(libs.serialization)
-
-
+    implementation(libs.coil.kt.compose)
 }
