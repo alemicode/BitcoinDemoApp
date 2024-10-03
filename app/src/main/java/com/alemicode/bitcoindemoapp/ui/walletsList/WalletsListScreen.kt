@@ -5,6 +5,10 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.Check
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -14,8 +18,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.alemicode.bitcoindemoapp.domain.encryption.WalletsAddressModel
+import com.alemicode.bitcoindemoapp.domain.model.readWalletsFromRawFile
 import com.alemicode.bitcoindemoapp.ui.component.ApplicationBackground
+import com.alemicode.bitcoindemoapp.ui.component.IconToggleButton
 import com.alemicode.bitcoindemoapp.ui.component.TopicIcon
 
 @Composable
@@ -64,19 +71,30 @@ private fun WalletItem(
     Surface(
         modifier = Modifier
             .fillMaxWidth()
-            .heightIn(min = 60.dp)
+            .heightIn(min = 75.dp)
             .padding(horizontal = 30.dp, vertical = 20.dp),
-        shape = RoundedCornerShape(8.dp),
+        shape = RoundedCornerShape(18.dp),
         color = MaterialTheme.colorScheme.background,
         onClick = { onClick(walletAddress) },
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(horizontal = 12.dp)
+            modifier = Modifier
+                .height(70.dp)
+                .padding(horizontal = 12.dp)
         ) {
             TopicIcon(imageUrl = imageUrl)
             WalletAddressText(walletAddress = walletAddress, Modifier.weight(1f))
+            IconToggleButton(
+                icon = {
+                    Icon(
+                        imageVector = Icons.Rounded.Check,
+                        contentDescription = "",
+                    )
+                },
+            )
         }
+
     }
 }
 

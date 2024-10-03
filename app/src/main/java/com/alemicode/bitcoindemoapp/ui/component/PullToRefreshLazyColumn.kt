@@ -24,7 +24,6 @@ fun PullToRefreshLazyColumn(
     onRefresh: () -> Unit,
     content: @Composable () -> Unit,
     modifier: Modifier = Modifier,
-    lazyListState: LazyListState = rememberLazyListState()
 ) {
     // Remember the PullToRefresh state
     val pullToRefreshState = rememberPullToRefreshState()
@@ -35,16 +34,7 @@ fun PullToRefreshLazyColumn(
             .nestedScroll(pullToRefreshState.nestedScrollConnection) // Handle nested scroll events
             .fillMaxSize()
     ) {
-        // LazyColumn with item padding and spacing
-        LazyColumn(
-            state = lazyListState,
-            contentPadding = PaddingValues(8.dp),
-            verticalArrangement = Arrangement.spacedBy(8.dp)
-        ) {
-            item {
-                content() // Display provided content
-            }
-        }
+        content()
 
         // Trigger onRefresh callback when pull-to-refresh is active
         if (pullToRefreshState.isRefreshing) {

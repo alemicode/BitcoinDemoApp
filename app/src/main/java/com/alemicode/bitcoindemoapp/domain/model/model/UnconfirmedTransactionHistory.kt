@@ -11,7 +11,7 @@ import com.alemicode.bitcoindemoapp.domain.model.response.UnconfirmedStatus
  */
 data class UnconfirmedTransactionHistory(
     val transactionId: String? = null,
-    val status: UnconfirmedStatus? = null,
+    val status: Boolean? = true,
     val amount: Int? = null
 )
 

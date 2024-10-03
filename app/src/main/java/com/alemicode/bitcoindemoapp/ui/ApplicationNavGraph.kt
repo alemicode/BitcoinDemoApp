@@ -24,8 +24,12 @@ fun AppNavGraph(
     ) {
 
         composable(route = WalletsListDestination.route) {
+
             val walletsUiState = walletDetailsViewModel.walletsUiState.collectAsStateWithLifecycle()
-            WalletsListScreen(modifier = modifier, walletsUiState = walletsUiState) { walletAddress ->
+            WalletsListScreen(
+                modifier = modifier,
+                walletsUiState = walletsUiState,
+            ) { walletAddress ->
                 navController.navigate(WalletDetailsDestination.createRoute(walletAddress))
             }
         }
@@ -37,12 +41,16 @@ fun AppNavGraph(
             })
         ) { backStackEntry ->
             // It's best practice not to use whole viewmodel as method parameter to avoid recomposition and improve performance
-            val uiState = walletDetailsViewModel.walletInformationUiState.collectAsStateWithLifecycle()
+            val uiState =
+                walletDetailsViewModel.walletInformationUiState.collectAsStateWithLifecycle()
+            val walletAddress = backStackEntry.arguments?.getString("walletAddress") ?: ""
             val refreshData = walletDetailsViewModel::refreshData
+            walletDetailsViewModel.updateWalletAddress(walletAddress)
             WalletDetailsScreen(
                 modifier = modifier,
                 uiState = uiState,
-                refreshData = refreshData
+                refreshData = refreshData,
+                walletAddress = walletAddress,
             )
         }
     }

@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                     AppNavGraph(
                         modifier = Modifier.padding(innerPadding),
                         navController = navController,
-                        walletDetailsViewModel = walletDetailsViewModel
+                        walletDetailsViewModel = walletDetailsViewModel,
                     )
                 }
             }

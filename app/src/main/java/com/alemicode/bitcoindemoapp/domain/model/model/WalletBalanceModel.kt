@@ -9,6 +9,6 @@ package com.alemicode.bitcoindemoapp.domain.model.model
  */
 data class WalletBalance(
     val walletAddress: String? = null,
-    val totalFunded: Int? = null,
-    val totalSpent: Int? = null
+    val totalFunded: Int? = 0,
+    val totalSpent: Int? = 0
 )

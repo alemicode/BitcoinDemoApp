@@ -14,7 +14,7 @@ import com.alemicode.bitcoindemoapp.domain.model.response.WalletBalanceDto
  */
 fun ConfirmedTransactionDto.toConfirmedTransactionHistory() = ConfirmedTransactionHistory(
     transactionId = this.txid,
-    status = this.confirmedStatus,
+    status = this.confirmedStatus?.confirmed ?: true,
     amount = this.vout?.get(0)?.value
 )
 
@@ -23,7 +23,7 @@ fun ConfirmedTransactionDto.toConfirmedTransactionHistory() = ConfirmedTransacti
  */
 fun UnconfirmedTransactionDto.toUnconfirmedTransactionHistory() = UnconfirmedTransactionHistory(
     transactionId = this.txid,
-    status = this.status,
+    status = this.status?.confirmed ?: true,
     amount = this.vout?.get(0)?.value
 )
 
@@ -32,6 +32,6 @@ fun UnconfirmedTransactionDto.toUnconfirmedTransactionHistory() = UnconfirmedTra
  */
 fun WalletBalanceDto.toWalletBalance() = WalletBalance(
     walletAddress = this.address,
-    totalFunded = this.chainStats?.fundedTxoSum,
-    totalSpent = this.chainStats?.spentTxoSum
+    totalFunded = this.chainStats?.fundedTxoSum ?: 0,
+    totalSpent = this.chainStats?.spentTxoSum ?: 0
 )

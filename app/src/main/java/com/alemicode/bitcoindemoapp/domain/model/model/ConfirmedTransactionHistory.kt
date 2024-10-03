@@ -11,6 +11,6 @@ import com.alemicode.bitcoindemoapp.domain.model.response.ConfirmedStatus
  */
 data class ConfirmedTransactionHistory(
     val transactionId: String? = null,
-    val status: ConfirmedStatus? = null,
+    val status: Boolean? = true,
     val amount: Int? = null
 )

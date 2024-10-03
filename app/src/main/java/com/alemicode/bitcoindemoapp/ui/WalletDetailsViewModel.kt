@@ -21,7 +21,7 @@ class WalletDetailsViewModel @Inject constructor(
 
 ) : ViewModel() {
 
-    private val walletAddressFlow = savedStateHandle.getStateFlow(
+    val walletAddressFlow: StateFlow<String> = savedStateHandle.getStateFlow(
         key = "walletAddress",
         initialValue = "tb1qtzrhlwxqcsufs8hvg4c3w33utf9hat4x9xlrf7" // A temp wallet address
     )
@@ -48,6 +48,9 @@ class WalletDetailsViewModel @Inject constructor(
                 .map<AllTransactionHistoryModel, WalletInformationUiState> { transactionsHistory ->
                     WalletInformationUiState.Success(transactionsHistory)
                 }
+                .onStart {
+                    emit(WalletInformationUiState.Loading) // Emit Loading state when refresh starts
+                }
                 .catch { e ->
                     emit(WalletInformationUiState.Error(e.message ?: "Unknown error"))
                 }
@@ -57,6 +60,10 @@ class WalletDetailsViewModel @Inject constructor(
                 started = SharingStarted.WhileSubscribed(5_000),
                 initialValue = WalletInformationUiState.Loading
             )
+
+    fun updateWalletAddress(newAddress: String) {
+        savedStateHandle["walletAddress"] = newAddress
+    }
 
     // Method to trigger refresh
     fun refreshData() {
