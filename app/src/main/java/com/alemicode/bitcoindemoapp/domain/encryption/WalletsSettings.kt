@@ -3,7 +3,7 @@ package com.alemicode.bitcoindemoapp.domain.encryption
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class UserSettings(
+data class WalletsSettings(
     val listOfWallets: List<String>? = null,
 )
 

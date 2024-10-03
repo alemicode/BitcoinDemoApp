@@ -16,14 +16,16 @@ import com.alemicode.bitcoindemoapp.ui.walletsList.WalletsListScreen
 fun AppNavGraph(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    mainViewModel: MainViewModel,
+    walletDetailsViewModel: WalletDetailsViewModel,
 ) {
     NavHost(
         navController = navController,
         startDestination = WalletsListDestination.route
     ) {
+
         composable(route = WalletsListDestination.route) {
-            WalletsListScreen(modifier = modifier) { walletAddress ->
+            val walletsUiState = walletDetailsViewModel.walletsUiState.collectAsStateWithLifecycle()
+            WalletsListScreen(modifier = modifier, walletsUiState = walletsUiState) { walletAddress ->
                 navController.navigate(WalletDetailsDestination.createRoute(walletAddress))
             }
         }
@@ -35,8 +37,8 @@ fun AppNavGraph(
             })
         ) { backStackEntry ->
             // It's best practice not to use whole viewmodel as method parameter to avoid recomposition and improve performance
-            val uiState = mainViewModel.walletInformationUiState.collectAsStateWithLifecycle()
-            val refreshData = mainViewModel::refreshData
+            val uiState = walletDetailsViewModel.walletInformationUiState.collectAsStateWithLifecycle()
+            val refreshData = walletDetailsViewModel::refreshData
             WalletDetailsScreen(
                 modifier = modifier,
                 uiState = uiState,

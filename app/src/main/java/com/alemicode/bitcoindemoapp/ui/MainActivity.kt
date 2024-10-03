@@ -5,8 +5,10 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
@@ -21,14 +23,18 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             BitcoinDemoAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
+                Scaffold(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = MaterialTheme.colorScheme.primary)
+                ) { innerPadding ->
                     val navController = rememberNavController()
                     // TODO It's better to use viewModel in its graph but because we have one VM for simplicity we intiliaze it in acitivty
-                    val mainViewModel: MainViewModel by viewModels()
+                    val walletDetailsViewModel: WalletDetailsViewModel by viewModels()
                     AppNavGraph(
                         modifier = Modifier.padding(innerPadding),
                         navController = navController,
-                        mainViewModel = mainViewModel
+                        walletDetailsViewModel = walletDetailsViewModel
                     )
                 }
             }

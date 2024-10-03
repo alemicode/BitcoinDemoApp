@@ -6,18 +6,18 @@ import kotlinx.serialization.json.Json
 import java.io.InputStream
 import java.io.OutputStream
 
-class UserSettingsSerializer(
+class WalletsSettingsSerializer(
     private val cryptoManager: CryptoManager
-) : Serializer<UserSettings> {
+) : Serializer<WalletsSettings> {
 
-    override val defaultValue: UserSettings
-        get() = UserSettings()
+    override val defaultValue: WalletsSettings
+        get() = WalletsSettings()
 
-    override suspend fun readFrom(input: InputStream): UserSettings {
+    override suspend fun readFrom(input: InputStream): WalletsSettings {
         val decryptedBytes = cryptoManager.decrypt(input)
         return try {
             Json.decodeFromString(
-                deserializer = UserSettings.serializer(),
+                deserializer = WalletsSettings.serializer(),
                 string = decryptedBytes.decodeToString()
             )
         } catch (e: SerializationException) {
@@ -26,10 +26,10 @@ class UserSettingsSerializer(
         }
     }
 
-    override suspend fun writeTo(t: UserSettings, output: OutputStream) {
+    override suspend fun writeTo(t: WalletsSettings, output: OutputStream) {
         cryptoManager.encrypt(
             bytes = Json.encodeToString(
-                serializer = UserSettings.serializer(),
+                serializer = WalletsSettings.serializer(),
                 value = t
             ).encodeToByteArray(),
             outputStream = output
