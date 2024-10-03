@@ -10,11 +10,10 @@ import kotlinx.coroutines.flow.*
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(
+class WalletDetailsViewModel @Inject constructor(
     private val getTransactionHistoryUseCase: GetTransactionHistoryUseCase,
     private val savedStateHandle: SavedStateHandle
 ) : ViewModel() {
-
 
     private val walletAddressFlow = savedStateHandle.getStateFlow(
         key = "walletAddress",
